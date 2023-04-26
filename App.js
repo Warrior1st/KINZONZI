@@ -16,8 +16,8 @@ import {
   StatusBar,
 } from 'expo-status-bar';
 import {
-  Searchbar,
-} from 'react-native-paper';
+  SearchBar,
+} from 'react-native-elements';
 
 export default function App() {
   const {landscape} = useDeviceOrientation();
@@ -27,28 +27,35 @@ export default function App() {
   ]);
   const containerStyle = {backgroundColor: "orange"};
   //const handleAlert = () => Alert.prompt("My title", "My message", text => console.log(text));
-  const [searchQuery, setSearchQuery] = React.useState('');
+  const [search, setSearch] = React.useState('');
   const onSearch = query => setSearchQuery(query);
   return (
-    <SafeAreaView style={styles.container}>
-      <View style={{
-        flex: 1,
-        backgroundColor:'#ffffff',
-        alignItems: 'center',
-        justifyContent: 'flex-start',
-
-        //width: '100%',
-        //height: '100%',
-      }}>
-        <Searchbar
-          placeholder="Rechercher une demeure"
-          onChangeText={onSearch}
-          style={{ width: 366, height: 40, borderColor: '#000000', elevation: 0}}/>
-        <StatusBar style='dark'></StatusBar>
-        <Image source={require('./assets/redHouse.jpg')} style={{ width: 348, height: 252, paddingTop: 34}}/>
-
-      </View>
-    </SafeAreaView>
+    <View style={styles.container}>
+      <SearchBar
+        placeholder="Search"
+        onChangeText={setSearch}
+        value={search}
+        containerStyle={styles.searchContainer}
+        inputContainerStyle={styles.searchInput}
+      />
+      <ScrollView contentContainerStyle={styles.scrollContainer}>
+        <View style={styles.row}>
+          <Image source={require('./assets/redHouse.jpg')} style={styles.image}/>
+          <Image source={require('./assets/fallHouse.jpg')} style={styles.image} />
+          <Image source={require('./assets/oldHouse.jpg')} style={styles.image} />
+        </View>
+        <View style={styles.row}>
+          <Image source={require('./assets/poolHouse.jpg')} style={styles.image} />
+          <Image source={require('./assets/whiteHouse.jpg')} style={styles.image} />
+          <Image source={require('./assets/bahamasHouse.jpg')} style={styles.image} />
+        </View>
+        <View style={styles.row}>
+          <Image source={require('./assets/redHouse.jpg')} style={styles.image} />
+          <Image source={require('./assets/bahamasHouse.jpg')} style={styles.image} />
+          <Image source={require('./assets/poolHouse.jpg')} style={styles.image} />
+        </View>
+      </ScrollView>
+    </View>
   );
 
   
@@ -59,6 +66,12 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "#fff",
     //paddingTop: Platform.OS === "android" ? StatusBar.currentHeight : 0,
+  },
+  image: {
+    width: 348,
+   
+    height: 252,
+    paddingTop: 34,
   },
 });
   
