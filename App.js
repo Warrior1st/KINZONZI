@@ -4,12 +4,25 @@ import Map from './screens/map';
 import Trends from './screens/tendances';
 import Profile from './screens/profile';
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
-import { NavigationContainer } from '@react-navigation/native';
+import { NavigationContainer, navigation } from '@react-navigation/native';
 import  MaterialCommunityIcons  from 'react-native-vector-icons/MaterialCommunityIcons';
 import { AntDesign } from '@expo/vector-icons';
-import {DefaultTheme, Provider} from 'react-native-paper';
+import {DefaultTheme, Provider, IconButton } from 'react-native-paper';
+import { createStackNavigator } from '@react-navigation/stack';
 
 const Tab = createMaterialBottomTabNavigator();
+const Stack = createStackNavigator();
+
+function MyStack() {
+  return (
+    <Stack.Navigator>
+      <Stack.Screen 
+        name="Carte" 
+        component={Map}
+      />
+    </Stack.Navigator>
+  );
+}
 
 function App() {
   return (
@@ -34,11 +47,13 @@ function App() {
             ),
           }}
         />
-        <Tab.Screen name="Carte" component={Map} 
+        <Tab.Screen name="Map" component={MyStack} 
           options={{
+            tabBarVisible: false,
             tabBarIcon: ({ color, size }) => (
                 <MaterialCommunityIcons name="map" color={color} size={26} style={{ marginTop: -15 }}/>
             ),
+            
           }}
         />
         <Tab.Screen name="Profil" component={Profile} 
