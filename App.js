@@ -13,6 +13,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 const Tab = createMaterialBottomTabNavigator();
 const Stack = createStackNavigator();
 
+//Todo: Go back from map
 function MyStack() {
   return (
     <Stack.Navigator>
@@ -24,6 +25,7 @@ function MyStack() {
   );
 }
 
+//Bottom bar navigation
 function App() {
   return (
     <NavigationContainer>
@@ -67,7 +69,7 @@ function App() {
     </NavigationContainer>
   );
 }
-
+//Disabling oval animation in bottom bar
 const theme = {
   ...DefaultTheme,
   colors: {
