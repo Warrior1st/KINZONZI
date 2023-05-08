@@ -12,6 +12,7 @@
     "@expo/webpack-config": "^0.17.2",
     "@mapbox/geo-viewport": "^0.5.0",
     "@react-native-community/hooks": "^2.8.1",
+    "@react-navigation/bottom-tabs": "^6.5.7",
     "@react-navigation/material-bottom-tabs": "^6.2.15",
     "@react-navigation/native": "^6.1.6",
     "@react-navigation/stack": "^6.3.16",

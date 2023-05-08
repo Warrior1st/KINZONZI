@@ -17,6 +17,27 @@ import HouseList from "./ListItem.js";
 import Supercluster from "supercluster";
 import MapZoomPanel from "../components/MapZoomPanel.tsx";
 import ClusteredMapView from "../components/ClusteredMapView.tsx";
+import { Header, Icon, Tooltip } from "react-native-elements";
+
+const PriceMarker = ({ price }) => {
+  return (
+    <Tooltip>
+      <View
+        style={{ backgroundColor: "#3bb5ed", padding: 5, borderRadius: 10 }}
+      >
+        <Text style={{ fontWeight: "bold" }}>{price}</Text>
+      </View>
+    </Tooltip>
+  );
+};
+
+const PriceMarkerCallout = ({ item }) => {
+  return (
+    <Callout>
+      <PriceMarker price={item.price} />
+    </Callout>
+  );
+};
 
 const MyMap = () => {
   const houses = HouseList.getHouses();
@@ -104,50 +125,63 @@ const MyMap = () => {
     }
   };
 
+  const handleGoBack = () => {
+    navigation.goBack();
+  };
+
   return (
     <View style={styles.container}>
-      <ClusteredMapView ref={map} style={styles.map} initialRegion={region}>
-        {houses.map((house, index) => (
-          <Marker
-            key={house.id}
-            coordinate={{
-              latitude: house.latitude,
-              longitude: house.longitude,
+      <Header
+        leftComponent={
+          <Icon
+            name="arrow-back"
+            color="#fff"
+            onPress={() => {
+              // go back logic here
             }}
-            onPress={() => handleMarkerPress(house)}
-          >
-            <Callout>
-              <View>
-                <Text style={styles.title}>{house.price}</Text>
-              </View>
-            </Callout>
-          </Marker>
-        ))}
-      </ClusteredMapView>
-      {/* <MapZoomPanel
-          onZoomIn={() => {
-            mapZoomIn()
-          }}
-          onZoomOut={() => {
-            mapZoomOut()
-          }}
-        /> */}
-      {selectedHouse && (
-        <View style={styles.houseDescription}>
-          <Image source={selectedHouse.source} style={styles.image} />
-          <Text style={styles.title}>{selectedHouse.title}</Text>
-          <Text>{selectedHouse.description}</Text>
-        </View>
-      )}
+          />
+        }
+        centerComponent={{ text: "Carte", style: { color: "#fff" } }}
+      />
+      <View style={styles.mapContainer}>
+        <ClusteredMapView ref={map} style={styles.map} initialRegion={region}>
+          {houses.map((house, index) => (
+            <Marker
+              key={house.id}
+              coordinate={{
+                latitude: house.latitude,
+                longitude: house.longitude,
+              }}
+              //onPress={() => handleMarkerPress(house)}
+            >
+              <PriceMarker price={house.price}></PriceMarker>
+            </Marker>
+          ))}
+        </ClusteredMapView>
+        {selectedHouse && (
+          <View style={styles.houseDescription}>
+            <Image source={selectedHouse.source} style={styles.image} />
+            <Text style={styles.title}>{selectedHouse.title}</Text>
+            <Text>{selectedHouse.description}</Text>
+          </View>
+        )}
+      </View>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
-    ...StyleSheet.absoluteFillObject,
-    alignItems: "center",
+    flex: 1,
+    backgroundColor: "#fff",
+    // ...StyleSheet.absoluteFillObject,
+    // alignItems: "center",
+    // justifyContent: "flex-end",
+  },
+  mapContainer: {
+    flex: 1,
     justifyContent: "flex-end",
+    alignItems: "center",
   },
   map: {
     ...StyleSheet.absoluteFillObject,

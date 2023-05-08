@@ -118,7 +118,6 @@ const MyComponent = () => {
 
   return (
     <View style={styles.container}>
-      <StatusBar style="dark" />
       <SearchBar
         placeholder="Search"
         onChangeText={setSearch}
