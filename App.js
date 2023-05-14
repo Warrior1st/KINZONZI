@@ -40,14 +40,13 @@ function App() {
         <Tab.Screen
           name="Accueil"
           component={Main}
-          //A little comment
           options={{
             tabBarIcon: ({ color, size }) => (
               <MaterialCommunityIcons
                 name="home"
                 color={color}
-                size={26}
-                style={{ marginTop: -15 }}
+                size={size}
+                style={{ margin: 0, }}
               />
             ),
           }}
@@ -60,8 +59,8 @@ function App() {
               <MaterialCommunityIcons
                 name="store"
                 color={color}
-                size={26}
-                style={{ marginTop: -15 }}
+                size={size}
+                style={{ margin: 0, }}
               />
             ),
           }}
@@ -75,8 +74,8 @@ function App() {
               <MaterialCommunityIcons
                 name="map"
                 color={color}
-                size={26}
-                style={{ marginTop: -15 }}
+                size={size}
+                style={{ margin: 0, }}
               />
             ),
           }}
@@ -90,8 +89,8 @@ function App() {
               <AntDesign
                 name="user"
                 size={26}
-                color={color}
-                style={{ marginTop: -15 }}
+                color={size}
+                style={{ margin: 0, }}
               />
             ),
           }}
