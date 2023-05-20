@@ -1,5 +1,4 @@
 import React from "react";
-import Main from "./screens/main";
 import Map from "./screens/map";
 import Trends from "./screens/tendances";
 import Profile from "./screens/profile";
@@ -9,6 +8,7 @@ import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityI
 import { AntDesign } from "@expo/vector-icons";
 import { DefaultTheme, Provider, IconButton } from "react-native-paper";
 import { createStackNavigator } from "@react-navigation/stack";
+import HomePage from "./pages/HomePage";
 
 const Tab = createBottomTabNavigator();
 //const Stack = createStackNavigator();
@@ -39,7 +39,7 @@ function App() {
       >
         <Tab.Screen
           name="Accueil"
-          component={Main}
+          component={HomePage}
           options={{
             tabBarIcon: ({ color, size }) => (
               <MaterialCommunityIcons
@@ -51,7 +51,7 @@ function App() {
             ),
           }}
         />
-        <Tab.Screen
+        {/* <Tab.Screen
           name="Tendances"
           component={Trends}
           options={{
@@ -64,7 +64,7 @@ function App() {
               />
             ),
           }}
-        />
+        /> */}
         <Tab.Screen
           name="Map"
           component={Map}
