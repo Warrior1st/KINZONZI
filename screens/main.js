@@ -12,6 +12,16 @@ import { StatusBar } from "expo-status-bar";
 import Constants from "expo-constants";
 import { Card, SearchBar, Button, Badge } from "react-native-elements";
 import HouseList from "./ListItem";
+const ADD_TO_FAVORITES = "Add to Favorites";
+const REMOVE_FROM_FAVORITES = "Remove from Favorites";
+
+//Format de monnaie
+const formatCurrency = new Intl.NumberFormat("en-US", {
+  style: "currency",
+  currency: "USD",
+  minimumFractionDigits: 0,
+  maximumFractionDigits: 2,
+}).format;
 
 const MyComponent = () => {
   const [search, setSearch] = React.useState("");
@@ -29,7 +39,7 @@ const MyComponent = () => {
       longitude: 15.322,
       type: "rent",
       commune: "Ngaliema",
-      price: "$55K",
+      price: "55 000$",
     },
     {
       id: 2,
@@ -41,7 +51,7 @@ const MyComponent = () => {
       longitude: 15.324,
       type: "sell",
       commune: "Gombe",
-      price: "$95K",
+      price: "95 000$",
     },
     {
       id: 3,
@@ -53,7 +63,7 @@ const MyComponent = () => {
       longitude: 15.326,
       type: "rent",
       commune: "Maluku",
-      price: "$155K",
+      price: "155 000$",
     },
     {
       id: 4,
@@ -154,25 +164,32 @@ const MyComponent = () => {
             <Card containerStyle={styles.cardContent}>
               <Image source={house.source} style={styles.image} />
               <View style={styles.cardText}>
-                <Text style={styles.caption}>
-                  {house.title}{" "}
+                <Text style={styles.title}>
+                  {house.price}{" "}
                   <Badge
-                    value={`• ${house.type === "sell" ? "A vendre" : "A louer"} •`}
-                    badgeStyle={{ backgroundColor: house.type === "sell" ?"#d4edda" : "#d1ecf1" }}
-                    textStyle={{ color: house.type === "sell" ? "#155724" : "#0c5460" }}
+                    value={`• ${
+                      house.type === "sell" ? "A vendre" : "A louer"
+                    } •`}
+                    badgeStyle={{
+                      backgroundColor:
+                        house.type === "sell" ? "#d4edda" : "#d1ecf1",
+                      marginTop: 5,
+                    }}
+                    textStyle={{
+                      color: house.type === "sell" ? "#155724" : "#0c5460",
+                    }}
                   />{" "}
                   <Badge
                     value={`• ${house.commune} •`}
-                    badgeStyle={{ backgroundColor: "#d6d8d9" }}
+                    badgeStyle={{ backgroundColor: "#d6d8d9", marginTop: 5 }}
                     textStyle={{ color: "#1b1e21" }}
                   />
                 </Text>
 
-                <Text numberOfLines={2} style={styles.description}>
+                <Text numberOfLines={2} style={styles.address}>
                   {house.sellingCaption}
                 </Text>
               </View>
-              <Button style={styles.button} title={"Nous contacter"} />
             </Card>
           </TouchableOpacity>
         ))}
@@ -207,37 +224,47 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   card: {
-    marginBottom: 10,
-    width: Dimensions.get("window").width * 0.95,
+    width: "95%",
+    height: 220,
+    marginBottom: 20,
   },
   cardText: {
-    paddingHorizontal: 5,
+    position: "absolute",
+    bottom: 0,
+    width: "100%",
+    height: 66,
+    //paddingTop: 20,
+    backgroundColor: "rgba(0, 0, 0, 0.5)",
+    //zIndex: 1,
+    // borderLeft: 2,
+    // borderRight: 2,
+    borderBottomLeftRadius: 15,
+    borderBottomRightRadius: 15,
   },
   button: {
     paddingHorizontal: 5,
     marginBottom: 0,
   },
   cardContent: {
-    borderRadius: 5,
+    //borderRadius: 5,
     margin: 0,
     paddingTop: 0,
     paddingLeft: 0,
     paddingRight: 0,
     overflow: "hidden",
-    width: Dimensions.get("window").width * 0.95,
-    paddingBottom: 5,
+    //width: Dimensions.get("window").width * 0.95,
+    paddingBottom: 0,
+    borderRadius: 15,
   },
   image: {
-    width: Dimensions.get("window").width * 0.95,
-    height: Dimensions.get("window").width * 0.95,
+    width: "100%",
+    height: "100%",
     resizeMode: "cover",
-    borderTopLeftRadius: 5,
-    borderTopRightRadius: 5,
+    borderRadius: 15,
   },
-  caption: {
-    marginTop: 10,
-    fontSize: 18,
-    fontWeight: "bold",
+  address: {
+    color: "white",
+    fontSize: 12,
   },
   showMore: {
     color: "blue",
@@ -245,9 +272,13 @@ const styles = StyleSheet.create({
     textAlign: "right",
   },
   description: {
-    marginTop: 5,
-    marginBottom: 8,
-    fontSize: 16,
+    color: "white",
+  },
+  title: {
+    marginTop: 0,
+    fontSize: 17,
+    color: "white",
+    fontWeight: "bold",
   },
 });
 
